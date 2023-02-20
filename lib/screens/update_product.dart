@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:flutest/collection/category.dart';
-import 'package:flutest/collection/product.dart';
+
+import '../models/category.dart';
+import '../models/product.dart';
 
 class UpdateProduct extends StatefulWidget {
   final Isar isar;
@@ -16,7 +17,7 @@ class UpdateProduct extends StatefulWidget {
 class _UpdateProductState extends State<UpdateProduct> {
   List<Category>? categories;
   Category? dropdownValue;
-  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _newCatController = TextEditingController();
   List<String> days = [
@@ -103,7 +104,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               Text("Title", style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             TextFormField(
-              controller: _titleController,
+              controller: _nameController,
             ),
             const Padding(
               padding: EdgeInsets.only(top: 10.0),
@@ -200,9 +201,7 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   _setProductInfor() async {
     await _readCategory();
-    _nameController.name = widget.product.name;
-    _timeController.text = widget.product.startTime;
-    dropdownDay = widget.product.day;
+    _nameController.text = widget.product.name;
     await widget.product.category.load();
     int? getId = widget.product.category.value?.id;
     setState(() {
@@ -213,15 +212,6 @@ class _UpdateProductState extends State<UpdateProduct> {
   updateProduct() async {
     final productCollection = widget.isar.products;
     await widget.isar.writeTxn(() async {
-      final product = await productCollection.get(widget.product.id);
-
-      product!
-        ..title = _titleController.text
-        ..startTime = _timeController.text
-        ..day = dropdownDay
-        ..category.value = dropdownValue;
-
-      await productCollection.put(product);
 
       Navigator.pop(context);
     });

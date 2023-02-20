@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:flutest/collection/category.dart';
-import 'package:flutest/collection/product.dart';
+import 'package:flutest/models/category.dart';
+import 'package:flutest/models/product.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutest/screens/create_product.dart';
 

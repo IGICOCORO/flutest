@@ -74,7 +74,11 @@ class _CreateProductState extends State<CreateProduct> {
                                 controller: _newCatController),
                             actions: [
                               ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if(_newCatController.text.isNotEmpty) {
+                                      _addCategory();
+                                    }
+                                  },
                                   child: const Text("Add"))
                             ],
                           ));
@@ -135,7 +139,9 @@ class _CreateProductState extends State<CreateProduct> {
             Align(
                 alignment: Alignment.center,
                 child:
-                ElevatedButton(onPressed: () {}, child: const Text("Add")))
+                ElevatedButton(onPressed: () {
+                  _addCategory();
+                }, child: const Text("Add")))
           ]),
         ),
       ),
@@ -156,4 +162,7 @@ class _CreateProductState extends State<CreateProduct> {
       });
     }
   }
+}
+
+class _addCategory {
 }
